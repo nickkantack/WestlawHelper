@@ -5,7 +5,8 @@
 // @description  Improvements to Westlaw
 // @author       Nick Kantack
 // @match        https://1.next.westlaw.com/*
-// @match        https://bivf.engagedmd.com/*
+// @match        https://*/*
+// @match        http://*/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=westlaw.com
 // @grant        GM_addStyle
 // ==/UserScript==
