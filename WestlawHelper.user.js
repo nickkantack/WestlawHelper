@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WestlawHelper
 // @namespace    http://tampermonkey.net/
-// @version      2024-02-17
+// @version      2024-02-18
 // @description  Improvements to Westlaw
 // @author       Nick Kantack
 // @match        https://1.next.westlaw.com/*
@@ -29,6 +29,8 @@ async function clickAvailableDownloadButtons() {
         } catch (e) {
             console.warn(`Unable to find the minimize button to try to close the download dialog`);
         }
+        // Give the window some time to close so that we don't download again
+        await new Promise((resolve, reject) => setTimeout(resolve, 2000));
     }
 
     // Check if there are downloads in the download history table
@@ -77,7 +79,7 @@ function createControlPanel() {
             width: 30px;
             height: 30px;
             border-radius: 30px;
-            background: #FFF;
+            background: #004970;
         }
         .controlPanel .indicatorSvg {
             width: 1em;
@@ -95,31 +97,33 @@ function createControlPanel() {
             right: 0;
             margin: 2em;
             padding: 1em;
-            background: #FFF;
+            background: #004970;
             border-radius: 10px;
-            border: 3px solid #999;
+            border: 3px solid #0b6b9e;
             z-index: 9999999;
             transition: 0.25s;
+            color: #FFF;
         }
         .controlPanel button {
             font-family: Tahoma;
             padding: 0.5em;
             border-radius: 10px;
-            border: 3px solid #999;
-            background: #DDD;
-            color: #666;
+            border: 3px solid #0b6b9e;
+            background: #004970;
+            color: #FFF;
             transition: 0.25s;
         }
         .controlPanel button:hover {
-            background: #CCC;
-            color: #333;
+            background: #127cb5;
         }
         .outOfViewToRight {
             left: 110%;
         }
         #playbackSpeedInput {
             border-radius: 10px;
-            border: 2px solid #999;
+            border: 2px solid #0b6b9e;
+            background: #004970;
+            color: #fff;
             padding: 0.5em;
             width: 6em;
             margin-right: 1em;
@@ -174,7 +178,7 @@ function createControlPanel() {
 
     // Create close button
     const closeButton = document.createElement("button");
-    closeButton.innerHTML = `<svg viewBox="0 0 100 100"><g stroke="#999" stroke-width="13"><path d="M30 70L70 30"/><path d="M30 30L70 70" /></g></svg>`;
+    closeButton.innerHTML = `<svg viewBox="0 0 100 100"><g stroke="#FFF" stroke-width="13"><path d="M30 70L70 30"/><path d="M30 30L70 70" /></g></svg>`;
     closeButton.classList.add(`closeButton`);
     closeButton.addEventListener("click", () => {
         controlPanelDiv.style.transform = `translate(200%, 0)`;
